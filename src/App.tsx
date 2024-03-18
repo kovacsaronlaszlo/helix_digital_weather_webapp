@@ -15,10 +15,12 @@ function App() {
     fetchOtherCity().then((data) => setOtherData(data));
   }, [lat, lon]);
 
+  console.log(weatherData)
+
   return !weatherData || !otherData ? (
     <Loader />
   ) : (
-    <div className="flex gap-5">
+    <div className="flex gap-5 flex-col md:flex-row">
       <WeatherCard
         name={weatherData.name}
         weather={weatherData.weather![0]}
