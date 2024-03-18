@@ -1,40 +1,36 @@
 import { useEffect, useState } from "react";
-import reactLogo from "./assets/react.svg";
-import viteLogo from "/vite.svg";
 import "./App.css";
 import { usePosition } from "./hook/usePosition";
 import { fetchCurrentCity, fetchOtherCity } from "./helper/helperFunction";
-import { Weather } from "./types/types";
-import { Loader } from "./components";
+import { WeatherType } from "./types/types";
+import { Loader, WeatherCard } from "./components";
 
 function App() {
-  const { latitude, longitude } = usePosition();
-  const [weatherData, setWeatherData] = useState<Weather | null>(null);
-  const [otherData, setOtherData] = useState<Weather | null>(null);
+  const { lat, lon } = usePosition();
+  const [weatherData, setWeatherData] = useState<WeatherType | null>(null);
+  const [otherData, setOtherData] = useState<WeatherType | null>(null);
 
   useEffect(() => {
-    fetchCurrentCity(latitude, longitude).then((data) => setWeatherData(data));
+    fetchCurrentCity(lat, lon).then((data) => setWeatherData(data));
     fetchOtherCity().then((data) => setOtherData(data));
-  }, [latitude, longitude]);
+  }, [lat, lon]);
 
   return !weatherData || !otherData ? (
     <Loader />
   ) : (
     <div className="flex gap-5">
-      <section>
-        <label>{weatherData.name}</label>
-        <img
-          src={`https://openweathermap.org/img/wn/${weatherData.weather[0].icon}.png`}
-          alt={weatherData.weather[0].description}
-        />
-      </section>
-      <section>
-        <label>{otherData.name}</label>
-        <img
-          src={`https://openweathermap.org/img/wn/${otherData.weather[0].icon}.png`}
-          alt={otherData.weather[0].description}
-        />
-      </section>
+      <WeatherCard
+        name={weatherData.name}
+        weather={weatherData.weather![0]}
+        main={weatherData.main}
+        wind={weatherData.wind}
+      />
+      <WeatherCard
+        name={otherData.name}
+        weather={otherData.weather![0]}
+        main={otherData.main}
+        wind={otherData.wind}
+      />
     </div>
   );
 }

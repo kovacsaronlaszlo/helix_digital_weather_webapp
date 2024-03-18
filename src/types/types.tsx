@@ -1,11 +1,6 @@
-export type CoordType = {
-  latitude: number;
-  longitude: number;
-};
-
-export type Weather = {
+export type WeatherType = {
   coord: Coord;
-  weather?: WeatherEntity[] | null;
+  weather?: Weather[] | null;
   base: string;
   main: Main;
   visibility: number;
@@ -18,16 +13,26 @@ export type Weather = {
   name: string;
   cod: number;
 };
-type Coord = {
+
+export type WeatherCardType = {
+  name: string;
+  weather: Weather;
+  main: Main;
+  wind: Wind;
+};
+
+export type Coord = {
   lon: number;
   lat: number;
 };
-type WeatherEntity = {
+
+type Weather = {
   id: number;
   main: string;
   description: string;
   icon: string;
 };
+
 type Main = {
   temp: number;
   feels_like: number;
@@ -36,13 +41,16 @@ type Main = {
   pressure: number;
   humidity: number;
 };
+
 type Wind = {
   speed: number;
   deg: number;
 };
+
 type Clouds = {
   all: number;
 };
+
 type Sys = {
   type: number;
   id: number;

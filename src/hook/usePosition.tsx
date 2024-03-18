@@ -1,23 +1,23 @@
 import { useState, useEffect } from "react";
-import { CoordType } from "../types/types";
+import { Coord } from "../types/types";
 
 export const usePosition = () => {
-  const [position, setPosition] = useState<CoordType>({
-    latitude: 0,
-    longitude: 0,
+  const [position, setPosition] = useState<Coord>({
+    lat: 0,
+    lon: 0,
   });
   const [error, setError] = useState<string>("");
 
   const onChange = ({ coords }: { coords: GeolocationCoordinates }) => {
     setPosition({
-      latitude: coords.latitude,
-      longitude: coords.longitude,
+      lat: coords.latitude,
+      lon: coords.longitude,
     });
     localStorage.setItem(
       "position",
       JSON.stringify({
-        latitude: coords.latitude,
-        longitude: coords.longitude,
+        lat: coords.latitude,
+        lon: coords.longitude,
       })
     );
   };
