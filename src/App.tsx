@@ -2,27 +2,23 @@ import { useEffect, useState } from "react";
 import reactLogo from "./assets/react.svg";
 import viteLogo from "/vite.svg";
 import "./App.css";
+import { usePosition } from "./hook/usePosition";
+import { fetchCurrentCity } from "./helper/helperFunction";
 
 function App() {
+  const { latitude, longitude } = usePosition();
   const [weatherData, setWeatherData] = useState({});
 
-  const APY_KEY = process.env.VITE_API_KEY
-
   useEffect(() => {
-    if(APY_KEY !== undefined) {
-      fetch(
-        `https://api.openweathermap.org/data/2.5/weather?lat=44.34&lon=10.99&appid=${APY_KEY}`
-      )
-        .then((res) => res.json())
-        .then((data) => setWeatherData(data))
-        .catch((error) => console.error("Error fetching data: ", error));
-    }
+    fetchCurrentCity(latitude, longitude).then(data => setWeatherData(data))
     
-  }, [APY_KEY]);
+  }, [latitude, longitude]);
 
-  console.log(weatherData)
+  console.log(weatherData);
 
-  return (
+  return !weatherData ? (
+    <img src={reactLogo} className="logo react" alt="React logo" />
+  ) : (
     <>
       <div className="bg-blue-dark">
         <a href="https://vitejs.dev" target="_blank">
