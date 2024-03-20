@@ -19,6 +19,7 @@ export type WeatherCardType = {
   weather: Weather;
   main: Main;
   wind: Wind;
+  time: string;
 };
 
 export type Coord = {

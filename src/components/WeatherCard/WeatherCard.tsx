@@ -5,11 +5,13 @@ export default function WeatherCard(props: WeatherCardType) {
         name,
         weather,
         main,
-        wind
+        wind,
+        time
     } = props;
   return (
     <section className='w-[20rem] p-6 flex flex-col items-center gap-2 rounded-lg border-2 border-blue-light shadow-lg shadow-blue-medium hover:shadow-blue-lighter'>
         <label>{name}</label>
+        <label>{time}</label>
         <img
           src={`https://openweathermap.org/img/wn/${
             weather.icon

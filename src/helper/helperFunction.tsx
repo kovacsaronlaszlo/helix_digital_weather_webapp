@@ -1,6 +1,7 @@
 const API_KEY = import.meta.env.VITE_API_KEY;
 
 export const fetchCurrentCity = async (lat: number, long: number) => {
+  console.log(lat, long)
   try {
     if (API_KEY !== undefined) {
       const response = await fetch(
